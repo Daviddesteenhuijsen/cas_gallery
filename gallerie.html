@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Gallery Cas</title>
+</head>
+
+<body class="body">
+    <button class="button"><a href="gallerie2.html">extra foto's</a></button>
+
+    <div id="gallery-container"></div>
+
+    <script>
+        // --- DEZE GEGEVENS STAAN NU GOED ---
+        const username = 'Daviddesteenhuijsen'; 
+        const repo = 'cas_gallery';
+        const folderPath = 'cas_images'; 
+
+        const container = document.getElementById('gallery-container');
+
+        async function fetchImages() {
+            try {
+                // Let op: hier stond Daviddesteenhuijsen, dat moet ${username} zijn om te werken
+                const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${folderPath}`);
+                
+                if (!response.ok) {
+                    throw new Error('Kon de map niet vinden of GitHub is even offline');
+                }
+
+                const files = await response.json();
+
+                files.forEach(file => {
+                    // Check op afbeeldingen
+                    if (file.name.match(/\.(gif|jpe?g|png|webp)$/i)) {
+                        const img = document.createElement('img');
+                        img.src = file.download_url; 
+                        img.className = 'images';
+                        img.alt = 'gallery';
+                        container.appendChild(img);
+                    }
+                });
+            } catch (error) {
+                console.error('Oeps! Er ging iets mis:', error);
+            }
+        }
+
+        fetchImages();
+    </script>
+</body>
+</html>

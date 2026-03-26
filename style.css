@@ -1,0 +1,40 @@
+.body {
+    background-image: url('gallerie.png');
+    background-repeat: repeat-x;
+    background-attachment: fixed;
+    height: 100%;
+    width: 500%; 
+    overflow-x: auto;
+}
+
+html, .body {
+    margin: 0;
+    padding: 0;
+}
+
+.images {
+    margin: 100px  20px 0;
+    width: 200px; 
+    height: auto;
+
+}
+
+
+img {
+    border: none;
+}
+
+button {
+    margin: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #c92121;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button a {
+    color: white;
+}
