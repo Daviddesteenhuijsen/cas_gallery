@@ -1,31 +1,39 @@
+html, .body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 .body {
     background-image: url('gallerie.png');
     background-repeat: repeat-x;
     background-attachment: fixed;
-    height: 100%;
-    width: 500%; 
     overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
 }
 
-html, .body {
-    margin: 0;
-    padding: 0;
+#gallery-container {
+    display: inline-flex;
+    padding-right: 50px;
 }
 
 .images {
-    margin: 100px  20px 0;
+    margin: 100px 20px 0;
     width: 200px; 
     height: auto;
-
+    flex-shrink: 0;
 }
-
 
 img {
     border: none;
 }
 
 button {
-    margin: 20px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
     padding: 10px 20px;
     font-size: 16px;
     background-color: #c92121;
@@ -37,4 +45,5 @@ button {
 
 button a {
     color: white;
+    text-decoration: none;
 }
