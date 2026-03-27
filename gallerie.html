@@ -1,12 +1,15 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="style.css?v=9999">
+    <link rel="stylesheet" href="style.css?v=1003">
     <title>Gallery Cas</title>
 </head>
 
 <body class="body">
-    <button class="button"><a href="gallerie2.html">extra foto's</a></button>
+    <div class="controls">
+        <button class="button"><a href="gallerie2.html">extra foto's</a></button>
+        <button id="speed-btn" onclick="changeSpeed()">Snelheid: Langzaam</button>
+    </div>
 
     <div id="gallery-container"></div>
 
@@ -16,19 +19,26 @@
         const folderPath = ''; 
 
         const container = document.getElementById('gallery-container');
+        const speedBtn = document.getElementById('speed-btn');
+
+        // Snelheid instellingen (in seconden)
+        let speeds = [80, 40, 15]; 
+        let labels = ['Langzaam', 'Medium', 'Snel'];
+        let currentSpeedIndex = 0;
+
+        function changeSpeed() {
+            currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
+            container.style.animationDuration = speeds[currentSpeedIndex] + 's';
+            speedBtn.innerText = 'Snelheid: ' + labels[currentSpeedIndex];
+        }
 
         async function fetchImages() {
             try {
                 const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${folderPath}`);
-                
-                if (!response.ok) {
-                    throw new Error('GitHub map niet gevonden');
-                }
-
+                if (!response.ok) throw new Error('GitHub error');
                 const files = await response.json();
 
                 files.forEach(file => {
-                    // FILTER: Alleen plaatjes pakken, maar NIET 'gallerie.png'
                     if (file.name.match(/\.(gif|jpe?g|png|webp)$/i) && file.name !== 'gallerie.png') {
                         const img = document.createElement('img');
                         img.src = file.download_url; 

@@ -2,7 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow-x: hidden; /* Verbergt de scrollbalk omdat hij vanzelf gaat */
+    overflow-x: hidden; /* Voorkomt handmatig scrollen */
 }
 
 .body {
@@ -11,43 +11,53 @@ html, body {
     background-attachment: fixed;
 }
 
+.controls {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 999;
+    display: flex;
+    gap: 10px;
+}
+
 #gallery-container {
     display: inline-flex;
-    padding-top: 100px;
-    /* De animatie: 30 seconden, lineair (altijd dezelfde snelheid), oneindig */
-    animation: scroll-langs 30s linear infinite;
+    padding-top: 120px;
+    white-space: nowrap;
+    /* Start snelheid op 80s */
+    animation: scroll-langs 80s linear infinite;
 }
 
 .images {
     height: 300px;
     width: auto;
-    margin: 0 20px;
+    margin: 0 30px;
     flex-shrink: 0;
+    display: block;
 }
 
-/* De beweging instellen */
 @keyframes scroll-langs {
-    0% {
-        transform: translateX(100vw); /* Start buiten beeld aan de rechterkant */
-    }
-    100% {
-        transform: translateX(-100%); /* Eindig als de hele rij voorbij is aan de linkerkant */
-    }
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
 }
 
 button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 999;
     padding: 10px 20px;
     background-color: #c92121;
+    color: white;
     border-radius: 5px;
     border: none;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 button a {
     color: white;
     text-decoration: none;
+}
+
+/* Zorgt dat de animatie pauzeert als je met je muis over een foto gaat */
+#gallery-container:hover {
+    animation-play-state: paused;
 }
