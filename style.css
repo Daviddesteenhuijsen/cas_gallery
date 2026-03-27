@@ -1,46 +1,49 @@
-html, .body {
+html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    overflow-x: hidden; /* Verbergt de scrollbalk omdat hij vanzelf gaat */
 }
 
 .body {
     background-image: url('gallerie.png');
     background-repeat: repeat-x;
     background-attachment: fixed;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
 }
 
 #gallery-container {
     display: inline-flex;
-    padding-right: 50px;
+    padding-top: 100px;
+    /* De animatie: 30 seconden, lineair (altijd dezelfde snelheid), oneindig */
+    animation: scroll-langs 30s linear infinite;
 }
 
 .images {
-    margin: 100px 20px 0;
-    width: auto; /* Laat de breedte automatisch bepalen */
-    height: 200px; /* Geef een vaste hoogte, de breedte past zich aan */
+    height: 300px;
+    width: auto;
+    margin: 0 20px;
     flex-shrink: 0;
-    object-fit: contain; /* Zorgt ervoor dat de afbeelding binnen de afmetingen past zonder uit te rekken */
 }
 
-img {
-    border: none;
+/* De beweging instellen */
+@keyframes scroll-langs {
+    0% {
+        transform: translateX(100vw); /* Start buiten beeld aan de rechterkant */
+    }
+    100% {
+        transform: translateX(-100%); /* Eindig als de hele rij voorbij is aan de linkerkant */
+    }
 }
 
 button {
     position: fixed;
     top: 20px;
     left: 20px;
-    z-index: 100;
+    z-index: 999;
     padding: 10px 20px;
-    font-size: 16px;
     background-color: #c92121;
-    color: white;
-    border: none;
     border-radius: 5px;
+    border: none;
     cursor: pointer;
 }
 
